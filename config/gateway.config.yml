@@ -5,19 +5,19 @@ admin:
   host: localhost
 apiEndpoints: # The endpoints that are being exposed
   animesApi:
-    host: ${SERVER_IP}
+    host: localhost
     paths: '/animes/*'
   authApi:
-    host: ${SERVER_IP}
+    host: localhost
     paths: '/auth/*'
   friendsApi:
-    host: ${SERVER_IP}
+    host: localhost
     paths: '/friends/*'
   meetingsApi:
-    host: ${SERVER_IP}
+    host: localhost
     paths: '/meetings/*'
   profileApi:
-    host: ${SERVER_IP}
+    host: localhost
     paths: '/profile/*'
 serviceEndpoints: # The true endpoints
   animesService:
