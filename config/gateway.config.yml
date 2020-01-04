@@ -1,7 +1,7 @@
 http:
   port: ${GATEWAY_PORT}
 admin:
-  port: 9876
+  port: 3006
   host: ${SERVER_IP}
 apiEndpoints: # The endpoints that are being exposed
   animesApi:
