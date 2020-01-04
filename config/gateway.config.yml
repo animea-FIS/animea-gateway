@@ -2,10 +2,10 @@ http:
   port: ${GATEWAY_PORT}
 admin:
   port: 9876
-  host: localhost
+  host: ${SERVER_IP}
 apiEndpoints: # The endpoints that are being exposed
   animesApi:
-    host: localhost
+    host: ${SERVER_IP}
     paths: '/animes/*'
   authApi:
     host: ${SERVER_IP}
@@ -23,13 +23,13 @@ serviceEndpoints: # The true endpoints
   animesService:
     url: http://animea-animes:${ANIMES_PORT} #animea-animes is the name of the docker-network
   authService:
-    url: http://animea-animes:${AUTH_PORT}
+    url: http://animea-auth:${AUTH_PORT}
   friendsService:
-    url: http://animea-animes:${FRIENDS_PORT}
+    url: http://animea-friends:${FRIENDS_PORT}
   meetingsService:
-    url: http://animea-animes:${MEETINGS_PORT}
+    url: http://animea-meetings:${MEETINGS_PORT}
   profileService:
-    url: http://animea-animes:${PROFILE_PORT}
+    url: http://animea-profile:${PROFILE_PORT}
 policies:
   - basic-auth
   - cors
