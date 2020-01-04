@@ -5,11 +5,31 @@ admin:
   host: localhost
 apiEndpoints: # The endpoints that are being exposed
   animesApi:
+    host: localhost
+    paths: '/animes/*'
+  authApi:
     host: ${SERVER_IP}
-    paths: '/api/v1/animes/*'
+    paths: '/auth/*'
+  friendsApi:
+    host: ${SERVER_IP}
+    paths: '/friends/*'
+  meetingsApi:
+    host: ${SERVER_IP}
+    paths: '/meetings/*'
+  profileApi:
+    host: ${SERVER_IP}
+    paths: '/profile/*'
 serviceEndpoints: # The true endpoints
   animesService:
     url: http://animea-animes:${ANIMES_PORT} #animea-animes is the name of the docker-network
+  authService:
+    url: http://animea-animes:${AUTH_PORT}
+  friendsService:
+    url: http://animea-animes:${FRIENDS_PORT}
+  meetingsService:
+    url: http://animea-animes:${MEETINGS_PORT}
+  profileService:
+    url: http://animea-animes:${PROFILE_PORT}
 policies:
   - basic-auth
   - cors
@@ -20,12 +40,10 @@ policies:
   - proxy
   - rate-limit
 pipelines:
-  default:
+  - name: animes
     apiEndpoints:
       - animesApi
     policies:
-    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
-    # - key-auth:
       - proxy:
           - action:
               serviceEndpoint: animesService
@@ -33,3 +51,48 @@ pipelines:
               prependPath:  true
               ignorePath:   false
               stripPath:    true
+  - name: auth
+    apiEndpoints:
+      - authApi
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: authService
+              changeOrigin: true
+              prependPath:  true
+              ignorePath:   false
+              stripPath:    true
+  - name: meetings
+    apiEndpoints:
+      - meetingsApi
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: meetingsService
+              changeOrigin: true
+              prependPath:  true
+              ignorePath:   false
+              stripPath:    true
+  - name: friends
+    apiEndpoints:
+      - friendsApi
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: friendsService
+              changeOrigin: true
+              prependPath:  true
+              ignorePath:   false
+              stripPath:    true
+  - name: profile
+    apiEndpoints:
+      - profileApi
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: profileService
+              changeOrigin: true
+              prependPath:  true
+              ignorePath:   false
+              stripPath:    true
+  
