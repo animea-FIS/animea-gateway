@@ -1,35 +1,35 @@
 http:
-  port: ${GATEWAY_PORT}
+  port: ${PORT}
 admin:
   port: 9876
   host: localhost
 apiEndpoints: # The endpoints that are being exposed
   animesApi:
-    host: localhost
+    host: '*.herokuapp.com'
     paths: '/animes/*'
   authApi:
-    host: ${SERVER_IP}
+    host: '*.herokuapp.com'
     paths: '/auth/*'
   friendsApi:
-    host: ${SERVER_IP}
+    host: '*.herokuapp.com'
     paths: '/friends/*'
   meetingsApi:
-    host: ${SERVER_IP}
+    host: '*.herokuapp.com'
     paths: '/meetings/*'
   profileApi:
-    host: ${SERVER_IP}
+    host: '*.herokuapp.com'
     paths: '/profile/*'
 serviceEndpoints: # The true endpoints
   animesService:
-    url: http://animea-animes:${ANIMES_PORT} #animea-animes is the name of the docker-network
+    url: https://animea-animes.herokuapp.com
   authService:
-    url: http://animea-animes:${AUTH_PORT}
+    url: https://animea-auth.herokuapp.com
   friendsService:
-    url: http://animea-animes:${FRIENDS_PORT}
+    url: https://animea-friends.herokuapp.com
   meetingsService:
-    url: http://animea-animes:${MEETINGS_PORT}
+    url: https://animea-meetings.herokuapp.com
   profileService:
-    url: http://animea-animes:${PROFILE_PORT}
+    url: https://animea-profile.herokuapp.com
 policies:
   - basic-auth
   - cors

@@ -1,18 +1,18 @@
+sudo: required
+language: node_js
+node_js:
+  - "9"
+services:
+  - docker
 before_install:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-jobs:
-  include:
-    - stage: build docker image
-      if: branch = master
-      arch: arm64
-      language: bash
-      script:
-      - docker build -t animea-gateway .
-      - docker tag animea-gateway animea/animea-gateway:latest
-      - docker push animea/animea-gateway:latest
-    - stage: update services in server
-      if: branch = master
-      arch: amd64
-      language: bash
-      script:
-      - curl http://$SERVER_IP:$API_PORT/update
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+script:
+  - docker build -t animea-gateway .
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+    heroku container:login;
+    heroku container:push web -a $HEROKU_APP_NAME;
+    heroku container:release web -a $HEROKU_APP_NAME;
+  branch: master
