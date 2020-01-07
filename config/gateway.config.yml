@@ -1,7 +1,7 @@
 http:
   port: ${PORT}
 admin:
-  port: 9876
+  port: 3006
   host: localhost
 apiEndpoints: # The endpoints that are being exposed
   animesApi:
